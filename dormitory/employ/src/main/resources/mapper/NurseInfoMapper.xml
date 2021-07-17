@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.mapper.NurseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demo.demo.model.NurseInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PRICE" jdbcType="DECIMAL" property="price" />
+    <result column="DESCIBE" jdbcType="VARCHAR" property="descibe" />
+    <result column="FLAG" jdbcType="VARCHAR" property="flag" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="LEVEL" jdbcType="VARCHAR" property="level" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from nurse_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.demo.model.NurseInfo">
+    insert into nurse_info (ID, NAME, PRICE,
+                            DESCIBE, FLAG, STATUS,
+                            LEVEL)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+            #{descibe,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+            #{level,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.demo.demo.model.NurseInfo">
+    update nurse_info
+    set NAME = #{name,jdbcType=VARCHAR},
+        PRICE = #{price,jdbcType=DECIMAL},
+        DESCIBE = #{descibe,jdbcType=VARCHAR},
+        FLAG = #{flag,jdbcType=VARCHAR},
+        STATUS = #{status,jdbcType=VARCHAR},
+        LEVEL = #{level,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, NAME, PRICE, DESCIBE, FLAG, STATUS, LEVEL
+    from nurse_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="com.demo.demo.model.NurseInfo" resultMap="BaseResultMap">
+    select ID, NAME, PRICE, DESCIBE, FLAG, STATUS, LEVEL
+    from nurse_info
+    <where>
+      <if test="name != null and name != ''">
+        and name like concat('%',#{name},'%')
+      </if>
+      <if test="level != null and level != ''">
+        and level=#{level}
+      </if>
+    </where>
+  </select>
+</mapper>

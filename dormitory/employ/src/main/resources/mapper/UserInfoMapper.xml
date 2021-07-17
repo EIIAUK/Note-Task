@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.demo.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.demo.demo.model.UserInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="STAFFNAME" jdbcType="VARCHAR" property="staffname" />
+    <result column="STAFFSEX" jdbcType="VARCHAR" property="staffsex" />
+    <result column="STAFFAGE" jdbcType="VARCHAR" property="staffage" />
+    <result column="STAFFTYPE" jdbcType="VARCHAR" property="stafftype" />
+    <result column="PHONENUMBER" jdbcType="VARCHAR" property="phonenumber" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.demo.model.UserInfo">
+    insert into user_info (ID, STAFFNAME, STAFFSEX,
+                           STAFFAGE,  STAFFTYPE,
+                           PHONENUMBER)
+    values (#{id,jdbcType=INTEGER}, #{staffname,jdbcType=VARCHAR}, #{staffsex,jdbcType=VARCHAR},
+            #{staffage,jdbcType=VARCHAR},#{stafftype,jdbcType=VARCHAR},
+            #{phonenumber,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.demo.demo.model.UserInfo">
+    update user_info
+    set STAFFNAME = #{staffname,jdbcType=VARCHAR},
+        STAFFSEX = #{staffsex,jdbcType=VARCHAR},
+        STAFFAGE = #{staffage,jdbcType=VARCHAR},
+        STAFFTYPE = #{stafftype,jdbcType=VARCHAR},
+        PHONENUMBER = #{phonenumber,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, STAFFNAME, STAFFSEX, STAFFAGE, STAFFTYPE, PHONENUMBER
+    from user_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="com.demo.demo.model.UserInfo" resultMap="BaseResultMap">
+    select ID, STAFFNAME, STAFFSEX, STAFFAGE,STAFFTYPE, PHONENUMBER
+    from user_info
+    <where>
+      <if test="staffname != null and staffname != ''">
+        and staffname like concat('%',#{staffname},'%')
+      </if>
+    </where>
+  </select>
+</mapper>
