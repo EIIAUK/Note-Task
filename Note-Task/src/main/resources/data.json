@@ -1,0 +1,22 @@
+{
+  "name": "张三",
+  "age":  12,
+  "score": 95.5,
+  "game": ["王者","LOL","吃鸡"],
+  "college": {
+    "name": "1",
+    "address": "1"
+  },
+  "course": [
+    {
+      "name": "SSM框架",
+      "teacher": "郭老师",
+      "grade": 3
+    },
+    {
+      "name": "JAVA基础",
+      "teacher": "李老师",
+      "grade": 2
+    }
+  ]
+}

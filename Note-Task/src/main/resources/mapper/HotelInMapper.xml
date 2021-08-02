@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.note_task.mapper.HotelInMapper">
+  <resultMap id="BaseResultMap" type="com.note_task.model.HotelIn">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CREATE_DATE" jdbcType="DATE" property="createDate" />
+    <result column="CUSTOMER_NAME" jdbcType="VARCHAR" property="customerName" />
+    <result column="CUSTOMER_AGE" jdbcType="VARCHAR" property="customerAge" />
+    <result column="CUSTOMER_SEX" jdbcType="VARCHAR" property="customerSex" />
+    <result column="IDCARD" jdbcType="VARCHAR" property="idcard" />
+    <result column="ROOMID" jdbcType="VARCHAR" property="roomid" />
+    <result column="BUILDING_ID" jdbcType="VARCHAR" property="buildingId" />
+    <result column="ELDER_TYPE" jdbcType="VARCHAR" property="elderType" />
+    <result column="CHECKIN_DATE" jdbcType="DATE" property="checkinDate" />
+    <result column="EXPIRATION_DATE" jdbcType="DATE" property="expirationDate" />
+    <result column="CONTACTTEL" jdbcType="VARCHAR" property="contacttel" />
+    <result column="BED_ID" jdbcType="VARCHAR" property="bedId" />
+    <result column="PSYCHOSOMATICSTATE" jdbcType="VARCHAR" property="psychosomaticstate" />
+    <result column="ATTENTION" jdbcType="VARCHAR" property="attention" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hotel_in
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.note_task.model.HotelIn">
+    insert into hotel_in (ID, CREATE_DATE, CUSTOMER_NAME, 
+      CUSTOMER_AGE, CUSTOMER_SEX, IDCARD, 
+      ROOMID, BUILDING_ID, ELDER_TYPE, 
+      CHECKIN_DATE, EXPIRATION_DATE, CONTACTTEL, 
+      BED_ID, PSYCHOSOMATICSTATE, ATTENTION, 
+      STATUS)
+    values (#{id,jdbcType=INTEGER}, #{createDate,jdbcType=DATE}, #{customerName,jdbcType=VARCHAR}, 
+      #{customerAge,jdbcType=VARCHAR}, #{customerSex,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{roomid,jdbcType=VARCHAR}, #{buildingId,jdbcType=VARCHAR}, #{elderType,jdbcType=VARCHAR}, 
+      #{checkinDate,jdbcType=DATE}, #{expirationDate,jdbcType=DATE}, #{contacttel,jdbcType=VARCHAR}, 
+      #{bedId,jdbcType=VARCHAR}, #{psychosomaticstate,jdbcType=VARCHAR}, #{attention,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.note_task.model.HotelIn">
+    update hotel_in
+    set CREATE_DATE = #{createDate,jdbcType=DATE},
+      CUSTOMER_NAME = #{customerName,jdbcType=VARCHAR},
+      CUSTOMER_AGE = #{customerAge,jdbcType=VARCHAR},
+      CUSTOMER_SEX = #{customerSex,jdbcType=VARCHAR},
+      IDCARD = #{idcard,jdbcType=VARCHAR},
+      ROOMID = #{roomid,jdbcType=VARCHAR},
+      BUILDING_ID = #{buildingId,jdbcType=VARCHAR},
+      ELDER_TYPE = #{elderType,jdbcType=VARCHAR},
+      CHECKIN_DATE = #{checkinDate,jdbcType=DATE},
+      EXPIRATION_DATE = #{expirationDate,jdbcType=DATE},
+      CONTACTTEL = #{contacttel,jdbcType=VARCHAR},
+      BED_ID = #{bedId,jdbcType=VARCHAR},
+      PSYCHOSOMATICSTATE = #{psychosomaticstate,jdbcType=VARCHAR},
+      ATTENTION = #{attention,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, CREATE_DATE, CUSTOMER_NAME, CUSTOMER_AGE, CUSTOMER_SEX, IDCARD, ROOMID, 
+    BUILDING_ID, ELDER_TYPE, CHECKIN_DATE, EXPIRATION_DATE, CONTACTTEL, BED_ID, PSYCHOSOMATICSTATE, 
+    ATTENTION, STATUS
+    from hotel_in
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="com.note_task.model.HotelIn" resultMap="BaseResultMap">
+    select ID, CREATE_DATE, CUSTOMER_NAME, CUSTOMER_AGE, CUSTOMER_SEX, IDCARD, ROOMID,
+    BUILDING_ID, ELDER_TYPE, CHECKIN_DATE, EXPIRATION_DATE, CONTACTTEL, BED_ID, PSYCHOSOMATICSTATE,
+    ATTENTION, STATUS
+    from hotel_in
+    <where>
+      <if test="customerName != null and customerName != ''">
+        and CUSTOMER_NAME like concat('%',#{customerName},'%')
+      </if>
+      <if test="psychosomaticstate != null and psychosomaticstate != ''">
+        and PSYCHOSOMATICSTATE=#{psychosomaticstate}
+      </if>
+    </where>
+order by CHECKIN_DATE desc
+  </select>
+</mapper>
