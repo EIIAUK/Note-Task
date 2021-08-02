@@ -3,10 +3,10 @@ package com.note_task;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication public class EmployApplication {
+@SpringBootApplication public class NoteTaskApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EmployApplication.class, args);
+		SpringApplication.run(NoteTaskApplication.class, args);
 
 		System.out.println("  _   _           _                     _______                 _                _____   _                    _   \n"
 				+ " | \\ | |         | |                   |__   __|               | |              / ____| | |                  | |  \n"
